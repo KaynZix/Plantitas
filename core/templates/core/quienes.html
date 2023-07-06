@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Quienes somos</h1>
+
+
+    <div id="mapa_content">
+        <div id="mapa"></div>
+
+        <script src="{% static 'script.js' %}"></script>
+
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQnoDXTVwscl0OVMrCwe-gVwejxZNFGHQ&callback=initMap">
+        </script>
+    </div>
+    <style>
+        #mapa {
+            height: 500px;
+            width: 80%;
+            margin-bottom: 5vh;
+            margin-left: 10%;
+            background-color: #c0c0c0;
+        }
+    </style>
+
+    
+{% endblock %}

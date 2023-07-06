@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <title>Plantas</title>
+  <link rel="stylesheet" href="{% static 'plantas.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <!-------- nav gruesooo-->
+    <div id="arriba">
+
+      <div class="otra">
+        <img src="{% static 'images/icons8_account_20px.png' %}" alt="" >
+        {% if user.is_authenticated %}
+            <strong style="color: #4e4e4e; margin-right: 10px;">{{ user.username }}</strong>
+            <a href="{% url 'logout' %}">Salir</a>
+        {% else %}
+            <a href="{% url 'login' %}" style="margin-right:20px;">Login</a>
+            <a href="{% url 'registro' %}" >Registro</a>
+        {% endif %}
+      </div>
+
+      <div id="buscar">
+        <input type="" placeholder="Búsqueda de productos">
+        <img src="{% static 'images/icons8_search_20px.png'%}" alt="">
+      </div>
+      <!-----fin de nav-->
+
+    </div>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <img src="{% static 'images/logo_planta.png'%}" alt="" id="logo">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'plantas' %}">Plantas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'quienes' %}">Contacto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'historial_compras' %}">Historial de compras</a>
+            </li>
+            {% endif %}
+
+            {% if user.is_authenticated and user.username == 'admin' %}
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Promociones
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'descuentos' %}">Gestiona Promocion</a>
+                <a class="dropdown-item" href="{% url 'crearDescuento' %}">A&ntilde;adir
+                  Promocion</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Productos
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'producto_lista' %}">Gestiona Productos</a>
+                <a class="dropdown-item" href="{% url 'crearProducto' %}">A&ntilde;adir Productos</a>
+              </div>
+            </li>
+            {%endif%}
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+  </header>
+
+  <div class="contenido">
+
+    {% for planta in plantas %}
+
+    <div class="card-container">
+      <div class="card">
+        <img src="{{planta.imagen}}" alt="">
+        <img src="{{planta.imagen.url}}" alt="">
+        <div class="texto_p">
+          {% if planta.oferta %}
+          <p style="color: #4e4e4e;">Precio: 
+            <del class="precio-descuento">${{planta.precio}}</del>
+            <span>{{ planta.tachado }}</span>
+          </p>
+          {%else%}
+          <p style="color: #4e4e4e;">Precio: 
+            <span class="precio-descuento">${{planta.precio}}</span>
+          </p>
+          {%endif%}
+        </div>
+        <div class="texto_p">
+          <p style="color: #4e4e4e;">Cantidad: <span class="precio-descuento">{{planta.stock}}</span></p>
+        </div>
+        <div class="pie">
+          <a href="{% url 'producto' planta.codigo %}">Más información</a>
+        </div>
+        {% if planta.oferta%}
+        <div class="pie">
+          <a href="{% url 'addtocar' planta.codigo planta.tachado %}">
+            agregar al carro
+          </a>
+          <img src="{% static 'images/icons8_buy_24px_1.png' %}" alt="">
+        </div>
+        {%else%}
+        <div class="pie">
+          <a href="{% url 'addtocar2' planta.codigo %}">
+            agregar al carro
+          </a>
+          <img src="{% static 'images/icons8_buy_24px_1.png' %}" alt="">
+        </div>
+        {%endif%}
+      </div>
+    </div>
+
+    {% endfor %}
+    {{ carro }}
+
+
+  </div>
+
+  <footer>
+    <div class="descripcion-planta" id="contacto">
+      <div class="footer">
+        <div class="a1">
+          <h2 class="text-center">Nuestro Contacto</h2>
+          <div class="texto">
+            <p> Correo: GardenHome@mail.com</p>
+            <p> Teléfono: +56 9 1234 5678</p>
+          </div>
+        </div>
+        <hr>
+        <div class="a2">
+          <h2 class="text-center">Retira en nuestras tiendas</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit eos quod laboriosam ab</p>
+        </div>
+        <hr>
+        <div class="a3">
+          <h2 class="text-center">Compra protegida</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit eos quod laboriosam ab</p>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+</body>

@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="fondo1">
+    <div class="contenedor1">
+        <div class="login-box">
+            <img src="{% static 'images/cultivar-tulipanes-02a-a.jpg.webp' %} " class="avatar" alt="Avatar Image">
+            <h1>Inicie sesión aquí</h1>
+
+            <form class="needs-validation" method="post" >
+        
+              <!-- USERNAME INPUT -->
+                {% csrf_token %}
+                {{ form | crispy }}
+            
+              <!-- <input type="submit" value="Log In" href="index.html"> -->
+                <button class="log_" type="submit">Iniciar sesión</button>
+                <a class="log_2" href="#">Olvidaste tu Contraseña?</a><br>
+                <a class="log_2" href="{% url 'registro' %}">No tienes cuenta?</a>
+            </form>
+
+        </div>
+    </div>
+</div>       
+        
+{% endblock %}

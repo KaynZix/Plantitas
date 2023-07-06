@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+        <h1>Historial de compras</h1>
+        <section id="catalogo">
+            {% if user.is_authenticated %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for descuento in historial %}
+                        <tr>
+                            {% if user.username == descuento.cliente.username %}
+                            <td>{{ descuento.id }}</td>
+                            <td>{{ descuento.cliente }}</td>
+
+                            <td>{{ descuento.fecha }}</td>
+                            <td>{{ descuento.total }}</td>
+
+                            {% else %}
+                            {{ break }}     
+                            <td>Tu historial esta vacio</td>    
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>            
+            {%else%} 
+                <h2 style="width: 100%;text-align: center">
+                    <br/>No Has iniciado sesion!<br/>
+                </h2>
+            {%endif%}
+        </section>
+
+        <style>
+            th{
+                text-align: center;
+            }
+        </style>
+        
+
+
+        
+    {% endblock %}

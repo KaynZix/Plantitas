@@ -1,0 +1,60 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+        <h1>Productos actuales</h1>
+        <section id="catalogo">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                        <th>Precio</th>
+                        <th>Precio con descuento</th>
+                        <th>Stock</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for planta in plantas %}
+                        <tr>
+                            <td>{{ planta.codigo}}</td>
+                            <td>{{ planta.nombre}}</td>
+                            <td>
+                                <img src="{{ planta.imagen}}" alt="">
+                                <img src="{{ planta.imagen.url}}" alt="">
+                            </td>
+                            {% if planta.oferta%}
+                            <td>{{ planta.tachado}}</td>
+                            {% else %}
+                            <td>Sin descuento activo</td>
+                            {%endif%}
+                            <td>{{ planta.precio}}</td>
+                            <td>{{ planta.stock}}</td>
+                            <td>
+                                <a href="{% url 'eliminarProducto' planta.codigo %}">
+                                    <img src="{% static 'images/icons8_erase_30px.png' %}" alt="">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'modificarProducto' planta.codigo %}">Modificar</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>            
+        </section>
+
+        <style>
+            th{
+                text-align: center;
+            }
+        </style>
+        
+
+
+        
+    {% endblock %}
